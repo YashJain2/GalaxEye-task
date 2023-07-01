@@ -9,13 +9,11 @@ function AOIMap() {
     };
 
     const color = "purple"; // colour of AOI shapes
-    let staticTiles;
+    let staticTiles; 
     const geoDataRefLayer = useRef(null);
-
+    const featureGroupRef = useRef(null); 
     // to hold the state for intersecting tile section for the corresponding AOI
     const [intersectingTiles, setintersectingTiles] = useState(noTilesToDisplay);
-
-    const featureGroupRef = useRef(null);
 
 
     const updateMap = async (AOIGeoJSONObject) => {
@@ -35,11 +33,9 @@ function AOIMap() {
         catch (e) {
             console.error(e.message)
         }
-
+        setintersectingTiles(intersectingTilesArray);
         //intersecting tiles section
         console.log(intersectingTilesArray);
-
-        setintersectingTiles(intersectingTilesArray);
     }
 
     // Creating the intersecting tiles for the first time 
@@ -98,7 +94,7 @@ function AOIMap() {
 
     return (
         <MapContainer 
-        center={[12.972442, 77.580643]} 
+        center={[12.972442, 77.580643]} //intial position of map
         zoom={10} 
         style={{ width: "100vw", height: "100vh" }} 
         scrollWheelZoom={false}>
@@ -115,10 +111,7 @@ function AOIMap() {
                             shapeOptions: { color: color },
                             repeatMode: false,  
                         },
-                        circle: {
-                            shapeOptions: { color: color },
-                            repeatMode: false,  
-                        },
+                        circle: false,
                         polygon: false,
                         polyline: false,
                         circlemarker: false,

@@ -1,5 +1,10 @@
 # GalaxEye-AOI-Application
 
+### Project Description
+
+A user comes to a console which has a base-map and an option to draw an AOI (Area of Interest). Upon selecting and area they will be presented with all the tiles (pre configured satellite image’s metadata) which are intersecting that AOI
+Link to detailed description: https://galaxeye-space.notion.site/GalaxEye-problem-statement-Full-Stack-Developer-5f103d95da1347649b6c441321ab1668
+
 ### Pre-requisites
 - Docker Desktop
 - Node
