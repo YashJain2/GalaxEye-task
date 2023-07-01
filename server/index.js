@@ -43,7 +43,7 @@ const populateTable = async () => {
 };
 
 //READ ALL TABLE ROWS AND FOMRAT AS GEOJSON DATA
-app.post("/read", async (req, res) => {
+app.post("/fetch", async (req, res) => {
     try {
         await pool.query("SELECT * FROM karnataka_geo_data;");
     } catch (err) {
@@ -57,15 +57,16 @@ app.put("/intersect", async (req, res) => {
         const AOIObject = req.body.AOIGeoJSONObject.geometry;
         console.log(AOIObject);
 
-        var formattedJSONData = {};
-        formattedJSONData.type = "FeatureCollection"
-        formattedJSONData.features = []
+        var formattedFinalJSONData = {
+            type: "FeatureCollection",
+            features: []
+        };
 
         const mapData = await pool.query("SELECT ST_AsGeoJSON(polygon) FROM karnataka_geo_data WHERE ST_Intersects(polygon,ST_GeomFromGeoJSON($1));", [AOIObject]);
         for (var i = 0; i < mapData.rows.length; i++) {
-            formattedJSONData.features.push(JSON.parse(mapData.rows[i].st_asgeojson));
+            formattedFinalJSONData.features.push(JSON.parse(mapData.rows[i].st_asgeojson));
         }
-        res.json(formattedJSONData)
+        res.json(formattedFinalJSONData)
     } catch (err) {
         console.error(err.message);
     }

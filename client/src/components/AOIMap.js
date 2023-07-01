@@ -42,14 +42,18 @@ function AOIMap() {
         setintersectingTiles(intersectingTilesArray);
     }
 
+    // Creating the intersecting tiles for the first time 
+    // when the new shape (circle,rectangle) is created
     const onAOICreated = async (e) => {
         updateMap(e.layer.toGeoJSON());
     }
 
+    // Updating the intersecting tiles upon editing
     const onAOIEdited = (e) => {
         updateMap(e.layers.toGeoJSON().features[0]);
     }
 
+    // clearing the intersecting tiles when we delete all shapes
     const onAOIDeleted = () => {
         setintersectingTiles(noTilesToDisplay);
     }
@@ -68,19 +72,11 @@ function AOIMap() {
         }
     }
 
-    // Renders geoJSON and AOI async
-    useEffect(() => {
-        if (geoDataRefLayer.current) {
-            geoDataRefLayer.current.clearLayers().addData(intersectingTiles);
-            checkAndRemoveAOI(featureGroupRef);
-        }
-    }, [intersectingTiles])
-
     // Fetch static tiles on initialization
     useEffect(() => {
         const fetchDataFromTable = async () => {
             try {
-                const response = await fetch("http://localhost:3005/read");
+                const response = await fetch("http://localhost:3005/fetch");
                 const JSONObject = await response.json();
                 staticTiles = JSONObject;
             }
@@ -91,32 +87,44 @@ function AOIMap() {
         fetchDataFromTable();
     }, []);
 
+    // Renders geoJSON and AOI async when intersectingTiles changes
+    useEffect(() => {
+        if (geoDataRefLayer.current) {
+            geoDataRefLayer.current.clearLayers().addData(intersectingTiles);
+            checkAndRemoveAOI(featureGroupRef);
+        }
+    }, [intersectingTiles])
+
 
     return (
-        <MapContainer center={[12.91621054954953, 77.65186499781416]} zoom={10} style={{ width: "100%", height: "100vh" }} scrollWheelZoom={false}>
+        <MapContainer 
+        center={[12.972442, 77.580643]} 
+        zoom={10} 
+        style={{ width: "100vw", height: "100vh" }} 
+        scrollWheelZoom={false}>
             <FeatureGroup
                 ref={featureGroupRef}
             >
                 <EditControl
-                    position='topright'
+                    position='topleft'
                     onCreated={onAOICreated}
                     onDeleted={onAOIDeleted}
                     onEdited={onAOIEdited}
                     draw={{
-                        polygon: {
-                            allowIntersection: true,
-                            shapeOptions: { color: color },
-                        },
                         rectangle: {
-                            allowIntersection: true,
                             shapeOptions: { color: color },
+                            repeatMode: false,  
                         },
+                        circle: {
+                            shapeOptions: { color: color },
+                            repeatMode: false,  
+                        },
+                        polygon: false,
                         polyline: false,
-                        circle: false,
                         circlemarker: false,
                         marker: false,
                     }}
-                    edit={{ 
+                    edit={{
                         selectedPathOptions: {
                             color: color,
                             fillColor: color,
@@ -125,8 +133,8 @@ function AOIMap() {
                     }} />
             </FeatureGroup>
             <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+                url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
             />
             <GeoJSON ref={geoDataRefLayer} data={intersectingTiles} />
         </MapContainer>
