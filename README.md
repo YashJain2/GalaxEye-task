@@ -1,6 +1,6 @@
 # GalaxEye-AOI-Application
 
-###Pre-requisites
+### Pre-requisites
 - Docker Desktop
 - Node
 - React
@@ -20,8 +20,8 @@ Run the docker compose command to create image for frontend, backend & postgress
 docker-compose up --build -d
 ```
 
-###Trobleshooting Ways
+### Trobleshooting Ways
 
 - Check if the ports are already in use, if so kill the function running on ports or change the ports wherever needed
 - Clean the docker images and rebuild using the same command
-- Stop & rerun to find logs and debug
+- Stop & rerun to find logs and debug 
