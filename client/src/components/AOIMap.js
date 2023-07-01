@@ -15,7 +15,7 @@ function AOIMap() {
     // to hold the state for intersecting tile section for the corresponding AOI
     const [intersectingTiles, setintersectingTiles] = useState(noTilesToDisplay);
 
-
+//function to update the intersecting tiles layer on base map
     const updateMap = async (AOIGeoJSONObject) => {
         // Initializing an empty array for tiles intersection on GEOJSON data
         var intersectingTilesArray = [];
@@ -57,16 +57,19 @@ function AOIMap() {
     // Checks if AOI already exists, and if exists remove the old one
     const checkAndRemoveAOI = (featureGroupReference) => {
         const layers = featureGroupReference.current._layers;
-        if (Object.keys(layers).length > 1) {
-            Object.keys(layers).forEach((layerid, i) => {
-                if (i > 0) {
-                    return;
-                }
-                const layer = layers[layerid];
-                featureGroupReference.current.removeLayer(layer);
-            });
+        const layerIds = Object.keys(layers);
+      
+        if (layerIds.length > 1) {
+          const [firstLayerId, ...remainingLayerIds] = layerIds;
+          const firstLayer = layers[firstLayerId];
+          featureGroupReference.current.removeLayer(firstLayer);
+      
+          remainingLayerIds.forEach((layerId) => {
+            const layer = layers[layerId];
+            featureGroupReference.current.removeLayer(layer);
+          });
         }
-    }
+      }
 
     // Fetch static tiles on initialization
     useEffect(() => {
