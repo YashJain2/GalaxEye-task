@@ -30,3 +30,8 @@ docker-compose up --build -d
 - Check if the ports are already in use, if so kill the function running on ports or change the ports wherever needed
 - Clean the docker images and rebuild using the same command
 - Stop & rerun to find logs and debug 
+
+### Samples
+
+- Added some screenshots of the sample AOI created by user
+Link: https://docs.google.com/document/d/1ytWPJJEjoY_woSQd8LrK4moXRIkZmiqEBdsyo82zzYc/edit?usp=sharing
