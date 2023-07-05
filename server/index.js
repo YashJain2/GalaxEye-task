@@ -29,7 +29,7 @@ const populateTable = async () => {
         else {
             for (var i = 0; i < jsonData.features.length; i++) {
                 var polygonDescription = jsonData.features[i];
-                console.log(polygonDescription)
+                // console.log(polygonDescription)
                 pool.query("INSERT INTO karnataka_geo_data(polygon) VALUES(ST_GeomFromGeoJSON($1)) ", [polygonDescription.geometry]);
             }
             console.log("Data Insertion Successful");
@@ -73,6 +73,10 @@ app.put("/intersect", async (req, res) => {
         console.error(err.message);
     }
 })
+
+// app.get("/",(req,res)=>{
+//     return res.send("Hello to the GalaxEye backend");
+// })
 
 // listen on port 3005
 app.listen(3005, () => {

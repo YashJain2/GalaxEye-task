@@ -2,6 +2,7 @@ version: '3.8'
 services:
   postgresql_db:
     image: postgis/postgis:11-3.3-alpine
+    # TODO: environment values can be injected using .env file
     environment:
       POSTGRES_USER: "docker"
       POSTGRES_PASSWORD: "docker" 

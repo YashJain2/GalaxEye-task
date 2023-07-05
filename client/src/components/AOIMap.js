@@ -75,15 +75,15 @@ function AOIMap() {
     useEffect(() => {
         const fetchDataFromTable = async () => {
             try {
-                const response = await fetch("http://localhost:3005/fetch");
-                const JSONObject = await response.json();
-                staticTiles = JSONObject;
+                // const response = await fetch("http://localhost:3005/fetch");
+                // const JSONObject = await response.json();
+                // staticTiles = JSONObject;
             }
             catch (err) {
                 console.error(err.message);
             }
         }
-        fetchDataFromTable();
+        // fetchDataFromTable();
     }, []);
 
     // Renders geoJSON and AOI async when intersectingTiles changes
