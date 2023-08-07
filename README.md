@@ -1,4 +1,4 @@
-# GalaxEye-AOI-Application
+# AOI-Application
 
 ### Project Description
 
@@ -13,7 +13,7 @@ Link to detailed description: https://galaxeye-space.notion.site/GalaxEye-proble
 Pull the code from the github repository
 
 ```
-git pull https://github.com/YashJain2/GalaxEye-task.git
+git pull https://github.com/YashJain2/GeoJSON.git
 ```
 
 ```
@@ -33,5 +33,5 @@ docker-compose up --build -d
 
 ### Samples
 
-- Added some screenshots of the sample AOI created by user
+- Added some screenshots of the sample AOI created by the user
 Link: https://docs.google.com/document/d/1ytWPJJEjoY_woSQd8LrK4moXRIkZmiqEBdsyo82zzYc/edit?usp=sharing
